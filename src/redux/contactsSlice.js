@@ -15,8 +15,8 @@ export const contactsSlice = createSlice({
     addContact(state, action) {
       const id = nanoid();
       const { name, number } = action.payload;
-      const notify = () =>
-        toast(`${name} is already in contacts`, {
+      const notify = findedContact =>
+        toast(`${findedContact.name} is already in contacts`, {
           position: 'top-right',
           autoClose: 2000,
           hideProgressBar: true,
@@ -32,7 +32,7 @@ export const contactsSlice = createSlice({
       );
 
       if (findedContact) {
-        notify();
+        notify(findedContact);
         return;
       } else {
         return [...state, { id, name, number }];
